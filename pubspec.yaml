@@ -1,0 +1,18 @@
+name: flutter_love
+description: Intergrate flutter widgets with `love` state management, fall in `love` with flutter.
+version: 0.1.0-beta.1
+homepage: https://github.com/LoveCommunity/flutter_love
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  love: 0.1.0-beta.1
+  provider: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

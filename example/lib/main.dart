@@ -64,7 +64,7 @@ class UseReactWidgetPage extends StatelessWidget {
       create: (_) => createCouterSystem()
         .share(),
       builder: (context, _) => React.state<int, CounterEvent>(
-        context.read(), 
+        context.read<EffectSystem<int, CounterEvent>>(), 
         builder: (context, state, dispatch) {
           return CounterPage(
             title: 'Use React Widget Page',

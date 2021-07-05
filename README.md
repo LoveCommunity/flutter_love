@@ -1,10 +1,10 @@
 # flutter_love
 
-Intergrate flutter widgets with `love` state management library, fall in `love` with `flutter`.
+`flutter_love` provide flutter widgets handle common use case with [love] state management library, so fall in `love` with `flutter`.
 
 ## Getting Started
 
-There mainly two options to fall in `love` with `flutter`:
+There are mainly two options to integrate [love] with flutter:
 
 * `React` Widget
 * `StoreProvider` 
@@ -26,8 +26,7 @@ class UseReactWidgetPage extends StatelessWidget {
     return Provider(
       create: (_) => createCouterSystem()
         .share(),
-      builder: (context, _) => React.state<int, CounterEvent>(
-        context.read<EffectSystem<int, CounterEvent>>(), 
+      child: ReactState<int, CounterEvent>(
         builder: (context, state, dispatch) {
           return CounterPage(
             title: 'Use React Widget Page',
@@ -44,7 +43,7 @@ class UseReactWidgetPage extends StatelessWidget {
 
 ### StoreProvider
 
-**`StoreProvider` will consume an  `EffectSystem` then provide `Store` to descendant widget.**
+**`StoreProvider` can consume an  `EffectSystem` then provide `Store` to descendant widgets.**
 
 Descendant widget can access `Store` from `context`:
 
@@ -76,3 +75,5 @@ class UseStoreProviderPage extends StatelessWidget {
 ## License
 
 The MIT License (MIT)
+
+[love]:https://pub.dev/packages/love/versions/0.1.0-beta.2

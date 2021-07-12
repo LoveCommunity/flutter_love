@@ -12,7 +12,7 @@ class Store<State, Event> {
 }
 
 /// Provide Store to descendant widget
-class StoreProvider<State, Event> extends DeferredInheritedProvider<EffectSystem<State, Event>, Store<State, Event>> {
+class StoreProvider<State, Event> extends DeferredInheritedProvider<System<State, Event>, Store<State, Event>> {
  
   /// Creates a [EffectSystem] from `create` and run it.
   ///
@@ -20,7 +20,7 @@ class StoreProvider<State, Event> extends DeferredInheritedProvider<EffectSystem
   StoreProvider({
     Key? key,
     bool? lazy,
-    required Create<EffectSystem<State, Event>> create,
+    required Create<System<State, Event>> create,
     UpdateShouldNotify<Store<State, Event>>? updateShouldNotify,
     TransitionBuilder? builder,
     Widget? child,
@@ -40,7 +40,7 @@ class StoreProvider<State, Event> extends DeferredInheritedProvider<EffectSystem
   StoreProvider.value({
     Key? key,
     bool? lazy,
-    required EffectSystem<State, Event> value,
+    required System<State, Event> value,
     UpdateShouldNotify<Store<State, Event>>? updateShouldNotify,
     TransitionBuilder? builder,
     Widget? child,
@@ -55,7 +55,7 @@ class StoreProvider<State, Event> extends DeferredInheritedProvider<EffectSystem
   );
 }
 
-DeferredStartListening<EffectSystem<State, Event>, Store<State, Event>> _systemStartListening<State, Event>() {
+DeferredStartListening<System<State, Event>, Store<State, Event>> _systemStartListening<State, Event>() {
   return (context, setState, system, __) {
     bool isDisposed = false;
     final dispose = system.run(

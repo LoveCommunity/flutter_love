@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  love: ^0.1.0-beta.1
+  love: ^0.1.0-beta.4
   provider: ^5.0.0
 
 dev_dependencies:

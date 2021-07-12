@@ -1,8 +1,6 @@
 ## [0.1.0-beta.4] - 2020-07-12
 
-* refactor - extract widget `UIEffectBase<S, E>`
-* refactor - replace `React.state<S, E>` with `ReactState<S, E>`
-* refactor - `React*` widgets constructor parameter `EffectSystem` is optional now
+* refactor - remove `EffectSystem`
 
 ## [0.1.0-beta.2] - 2020-07-5
 

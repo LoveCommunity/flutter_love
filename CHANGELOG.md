@@ -1,3 +1,7 @@
+## [0.1.0-beta.4] - 2020-07-12
+
+* refactor - remove `EffectSystem`
+
 ## [0.1.0-beta.2] - 2020-07-5
 
 * refactor - extract widget `UIEffectBase<S, E>`

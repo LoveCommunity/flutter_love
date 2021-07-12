@@ -9,7 +9,7 @@ class ReactState<S, E> extends React<S, E, S> {
   // React Widget, build is triggered by reacting hold state change.
   ReactState({
     Key? key,
-    EffectSystem<S, E>? system, 
+    System<S, E>? system, 
     AreEqual<S>? areEqual,
     required UIEffectBuilder<S, E> builder,
   }): super(
@@ -27,7 +27,7 @@ class React<S, E, V> extends UIEffectBase<V, E> {
   // React Widget, build is triggered by reacting partial state change.
   React({
     Key? key,
-    EffectSystem<S, E>? system, 
+    System<S, E>? system, 
     required V Function(S state) value,
     AreEqual<V>? areEqual,
     required UIEffectBuilder<V, E> builder,  
@@ -35,7 +35,7 @@ class React<S, E, V> extends UIEffectBase<V, E> {
     key: key,
     builder: builder,
     run: (context, setState, hasCache, cache) {
-      final _system = system ?? context.read<EffectSystem<S, E>>();
+      final _system = system ?? context.read<System<S, E>>();
       return _system
         .react<V>(
           value: value,

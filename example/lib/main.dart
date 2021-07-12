@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: UseReactWidgetPage(), // use `React` widget
-      // home: UseStoreProviderPage(), // or use `StoreProvider`
+      // home: UseReactWidgetPage(), // use `React` widget
+      home: UseStoreProviderPage(), // or use `StoreProvider`
     );
   }
 }
@@ -61,8 +61,7 @@ class UseReactWidgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (_) => createCouterSystem()
-        .share(),
+      create: (_) => createCouterSystem(),
       child: ReactState<int, CounterEvent>(
         builder: (context, state, dispatch) {
           return CounterPage(
@@ -82,8 +81,7 @@ class UseStoreProviderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider(
-      create: (_) => createCouterSystem()
-        .asEffectSystem(),
+      create: (_) => createCouterSystem(),
       builder: (context, _) {
         final store = context.watch<Store<int, CounterEvent>>();
         return CounterPage(

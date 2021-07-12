@@ -13,7 +13,7 @@ There are mainly two options to integrate [love] with flutter:
 
 **`React` Widget is a combination of `react operator` and widget.**
 
-It can consume an `EffectSystem` and provide an `builder` function to transform `state`, `dispatch` to flutter widget:
+It can consume an `System` and provide an `builder` function to transform `state`, `dispatch` to flutter widget:
 
 ```dart
 
@@ -24,8 +24,7 @@ class UseReactWidgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (_) => createCouterSystem()
-        .share(),
+      create: (_) => createCouterSystem(),
       child: ReactState<int, CounterEvent>(
         builder: (context, state, dispatch) {
           return CounterPage(
@@ -43,7 +42,7 @@ class UseReactWidgetPage extends StatelessWidget {
 
 ### StoreProvider
 
-**`StoreProvider` can consume an  `EffectSystem` then provide `Store` to descendant widgets.**
+**`StoreProvider` can consume an  `System` then provide `Store` to descendant widgets.**
 
 Descendant widget can access `Store` from `context`:
 
@@ -56,8 +55,7 @@ class UseStoreProviderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider(
-      create: (_) => createCouterSystem()
-        .asEffectSystem(),
+      create: (_) => createCouterSystem(),
       builder: (context, _) {
         final store = context.watch<Store<int, CounterEvent>>();
         return CounterPage(
@@ -76,4 +74,4 @@ class UseStoreProviderPage extends StatelessWidget {
 
 The MIT License (MIT)
 
-[love]:https://pub.dev/packages/love/versions/0.1.0-beta.2
+[love]:https://pub.dev/packages/love/versions/0.1.0-beta.3

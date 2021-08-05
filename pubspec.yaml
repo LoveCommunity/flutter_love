@@ -1,6 +1,6 @@
 name: flutter_love
 description: Provide flutter widgets handle common use case with love state management library
-version: 0.1.0-beta.4
+version: 0.1.0-beta.5
 homepage: https://github.com/LoveCommunity/flutter_love
 
 environment:

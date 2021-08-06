@@ -6,25 +6,25 @@
 
 There are mainly two options to integrate [love] with flutter:
 
-* `React` Widget
-* `StoreProvider` 
+1. `React` Widget
+2. `StoreProvider` 
 
-### `React` Widget
+### 1. `React` Widget
 
-**`React` Widget is a combination of `react operator` and widget.**
+**`React` Widget is a combination of `react operator` and widget builder.**
 
-It can consume an `System` and provide an `builder` function to transform `state`, `dispatch` to flutter widget:
+It can consume a `System` with widget `builder`:
 
 ```dart
 
-System<int, CounterEvent> createCouterSystem() { ... }
+System<int, CounterEvent> createCounterSystem() { ... }
 
 class UseReactWidgetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (_) => createCouterSystem(),
+      create: (_) => createCounterSystem(),
       child: ReactState<int, CounterEvent>(
         builder: (context, state, dispatch) {
           return CounterPage(
@@ -40,22 +40,22 @@ class UseReactWidgetPage extends StatelessWidget {
 
 ```
 
-### StoreProvider
+### 2. StoreProvider
 
-**`StoreProvider` can consume an  `System` then provide `Store` to descendant widgets.**
+**`StoreProvider` can consume a `System` then provide `Store` to descendant widgets.**
 
 Descendant widget can access `Store` from `context`:
 
 ```dart
 
-System<int, CounterEvent> createCouterSystem() { ... }
+System<int, CounterEvent> createCounterSystem() { ... }
 
 class UseStoreProviderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return StoreProvider(
-      create: (_) => createCouterSystem(),
+      create: (_) => createCounterSystem(),
       builder: (context, _) {
         final store = context.watch<Store<int, CounterEvent>>();
         return CounterPage(

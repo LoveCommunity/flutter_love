@@ -4,7 +4,7 @@ import 'package:love/love.dart';
 import 'package:provider/provider.dart' hide Dispose;
 
 /// React Widget that is a comination of react operator and widgets.
-class ReactState<S, E> extends React<S, E, S> {
+class ReactState<S, E> extends UIEffectBase<S, E> {
 
   // React Widget, build is triggered by reacting hold state change.
   ReactState({
@@ -14,10 +14,19 @@ class ReactState<S, E> extends React<S, E, S> {
     required UIEffectBuilder<S, E> builder,
   }): super(
     key: key,
-    system: system,
-    value: (state) => state,
-    areEqual: areEqual,
     builder: builder,
+    run: (context, setState, hasCache, cache) {
+      final _system = system ?? context.read<System<S, E>>();
+      return _system
+        .reactState(
+          areEqual: areEqual,
+          skipFirstState: false,
+          effect: (state, dispatch) {
+            void _cache() => cache(state, dispatch);
+            !hasCache() ? _cache() : setState(_cache);
+          },
+        ).run();
+    },
   );
 }
 

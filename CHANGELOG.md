@@ -1,5 +1,6 @@
 ## [0.1.0-beta.5]
 
+* improvements - explicitly give `system.react` operator's parameter `skipFirst*` in `React*` widgets
 * visibility - export package:love/love.dart by default
 
 ## [0.1.0-beta.4] - 2020-07-12

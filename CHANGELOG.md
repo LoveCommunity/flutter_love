@@ -1,5 +1,6 @@
 ## [0.1.0-beta.5]
 
+* refactor - update example to adapt new API
 * refactor - `ReactState` extends `UIEffectBase` directly (previously extends `React`)
 * improvements - explicitly give `system.react` operator's parameter `skipFirst*` in `React*` widgets
 * visibility - export package:love/love.dart by default

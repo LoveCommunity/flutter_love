@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:love/love.dart';
 import 'package:flutter_love/flutter_love.dart';
 import 'package:provider/provider.dart';
 

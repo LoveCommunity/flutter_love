@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:love/love.dart';
 import 'package:provider/provider.dart' hide Dispose;
 
-/// React Widget that is a comination of react operator and widgets.
+/// React Widget that is a combination of `reactState` operator and widget.
 class ReactState<S, E> extends UIEffectBase<S, E> {
 
   // React Widget, build is triggered by reacting hold state change.
@@ -30,7 +30,7 @@ class ReactState<S, E> extends UIEffectBase<S, E> {
   );
 }
 
-/// React Widget that is a comination of react operator and widgets.
+/// React Widget that is a combination of `react` operator and widget.
 class React<S, E, V> extends UIEffectBase<V, E> {
 
   // React Widget, build is triggered by reacting partial state change.
@@ -59,7 +59,7 @@ class React<S, E, V> extends UIEffectBase<V, E> {
   );
 }
 
-/// Run within a statefull context
+/// Run within a stateful context
 typedef UIEffectRun<S, E> = Dispose Function(
   BuildContext context,
   void Function(void Function()) setState,

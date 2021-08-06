@@ -40,6 +40,7 @@ class React<S, E, V> extends UIEffectBase<V, E> {
         .react<V>(
           value: value,
           areEqual: areEqual,
+          skipFirstValue: false,
           effect: (value, dispatch) {
             void _cache() => cache(value, dispatch);
             !hasCache() ? _cache() : setState(_cache);

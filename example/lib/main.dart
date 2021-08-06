@@ -9,7 +9,7 @@ abstract class CounterEvent {}
 class CounterEventIncrease implements CounterEvent {}
 class CounterEventDecrease implements CounterEvent {}
 
-System<int, CounterEvent> createCouterSystem() {
+System<int, CounterEvent> createCounterSystem() {
   return System<int, CounterEvent>
     .create(initialState: 0)
     .on<CounterEventIncrease>(
@@ -27,11 +27,9 @@ System<int, CounterEvent> createCouterSystem() {
       print('State: $state');
       print('OldState: $oldState');
     })
-    .react<int>(
-      value: (state) => state,
-      skipFirstValue: true,
-      effect: (value, dispatch) {
-        print('Simulate persistence save call with state: $value');
+    .reactState(
+      effect: (state, dispatch) {
+        print('Simulate persistence save call with state: $state');
       },
     );
 }
@@ -49,8 +47,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: UseReactWidgetPage(), // use `React` widget
-      home: UseStoreProviderPage(), // or use `StoreProvider`
+      home: UseReactWidgetPage(), // use `React` widget
+      // home: UseStoreProviderPage(), // or use `StoreProvider`
     );
   }
 }
@@ -61,7 +59,7 @@ class UseReactWidgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (_) => createCouterSystem(),
+      create: (_) => createCounterSystem(),
       child: ReactState<int, CounterEvent>(
         builder: (context, state, dispatch) {
           return CounterPage(
@@ -81,7 +79,7 @@ class UseStoreProviderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider(
-      create: (_) => createCouterSystem(),
+      create: (_) => createCounterSystem(),
       builder: (context, _) {
         final store = context.watch<Store<int, CounterEvent>>();
         return CounterPage(

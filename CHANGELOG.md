@@ -1,6 +1,7 @@
 ## main
 
 * upgrade - upgrade `love` to v0.1.0-beta.6
+* feature - accept `null` as `state`
 
 ## [0.1.0-beta.5] - 2020-08-06
 

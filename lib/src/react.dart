@@ -98,7 +98,7 @@ class _UIEffectBaseState<S, E> extends State<UIEffectBase<S, E>> {
     _dispose = widget.run(context, setState, _hasCache, _cache);
   }
 
-  bool _hasCache() => _state != null;
+  bool _hasCache() => _dispatch != null;
 
   void _cache(S state, Dispatch<E> dispatch) {
     _state = state;
@@ -116,8 +116,8 @@ class _UIEffectBaseState<S, E> extends State<UIEffectBase<S, E>> {
 
   @override
   Widget build(BuildContext context) {
-    assert(_state != null);
+    assert(_state is S);
     assert(_dispatch != null);
-    return widget.builder(context, _state!, _dispatch!);
+    return widget.builder(context, _state as S, _dispatch!);
   }
 }

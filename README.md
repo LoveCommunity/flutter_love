@@ -74,4 +74,4 @@ class UseStoreProviderPage extends StatelessWidget {
 
 The MIT License (MIT)
 
-[love]:https://pub.dev/packages/love/versions/0.1.0-beta.5
+[love]:https://pub.dev/packages/love/versions/0.1.0-beta.6

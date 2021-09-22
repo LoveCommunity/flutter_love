@@ -1,3 +1,7 @@
+## main
+
+* upgrade - upgrade `love` to v0.1.0-beta.6
+
 ## [0.1.0-beta.5] - 2020-08-06
 
 * refactor - update example to adapt new API

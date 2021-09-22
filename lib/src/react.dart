@@ -20,7 +20,7 @@ class ReactState<S, E> extends UIEffectBase<S, E> {
       return _system
         .reactState(
           areEqual: areEqual,
-          skipFirstState: false,
+          skipInitialState: false,
           effect: (state, dispatch) {
             void _cache() => cache(state, dispatch);
             !hasCache() ? _cache() : setState(_cache);
@@ -49,7 +49,7 @@ class React<S, E, V> extends UIEffectBase<V, E> {
         .react<V>(
           value: value,
           areEqual: areEqual,
-          skipFirstValue: false,
+          skipInitialValue: false,
           effect: (value, dispatch) {
             void _cache() => cache(value, dispatch);
             !hasCache() ? _cache() : setState(_cache);

@@ -30,7 +30,7 @@ class UseReactWidgetPage extends StatelessWidget {
           return CounterPage(
             title: 'Use React Widget Page',
             count: state,
-            onIncreasePressed: () => dispatch(CounterEventIncrease()),
+            onIncreasePressed: () => dispatch(Increment()),
           );
         }
       ),
@@ -61,7 +61,7 @@ class UseStoreProviderPage extends StatelessWidget {
         return CounterPage(
           title: 'Use Store Provider Page', 
           count: store.state, 
-          onIncreasePressed: () => store.dispatch(CounterEventIncrease())
+          onIncreasePressed: () => store.dispatch(Increment())
         );
       },
     );

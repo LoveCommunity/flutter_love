@@ -10,7 +10,7 @@ class ReactState<S, E> extends UIEffectBase<S, E> {
   ReactState({
     Key? key,
     System<S, E>? system, 
-    AreEqual<S>? areEqual,
+    Equals<S>? equals,
     required UIEffectBuilder<S, E> builder,
   }): super(
     key: key,
@@ -19,7 +19,7 @@ class ReactState<S, E> extends UIEffectBase<S, E> {
       final _system = system ?? context.read<System<S, E>>();
       return _system
         .reactState(
-          areEqual: areEqual,
+          equals: equals,
           skipInitialState: false,
           effect: (state, dispatch) {
             void _cache() => cache(state, dispatch);
@@ -38,7 +38,7 @@ class React<S, E, V> extends UIEffectBase<V, E> {
     Key? key,
     System<S, E>? system, 
     required V Function(S state) value,
-    AreEqual<V>? areEqual,
+    Equals<V>? equals,
     required UIEffectBuilder<V, E> builder,  
   }): super(
     key: key,
@@ -48,7 +48,7 @@ class React<S, E, V> extends UIEffectBase<V, E> {
       return _system
         .react<V>(
           value: value,
-          areEqual: areEqual,
+          equals: equals,
           skipInitialValue: false,
           effect: (value, dispatch) {
             void _cache() => cache(value, dispatch);

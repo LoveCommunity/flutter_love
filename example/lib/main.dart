@@ -5,20 +5,20 @@ import 'package:provider/provider.dart';
 // typedef CounterState = int;
 
 abstract class CounterEvent {}
-class CounterEventIncrease implements CounterEvent {}
-class CounterEventDecrease implements CounterEvent {}
+class Increment implements CounterEvent {}
+class Decrement implements CounterEvent {}
 
 System<int, CounterEvent> createCounterSystem() {
   return System<int, CounterEvent>
     .create(initialState: 0)
-    .on<CounterEventIncrease>(
+    .on<Increment>(
       reduce: (state, event) => state + 1,
       effect: (state, event, dispatch) async {
         await Future.delayed(Duration(seconds: 3));
-        dispatch(CounterEventDecrease());
+        dispatch(Decrement());
       },
     )
-    .on<CounterEventDecrease>(
+    .on<Decrement>(
       reduce: (state, event) => state - 1,
     )
     .log()
@@ -60,7 +60,7 @@ class UseReactWidgetPage extends StatelessWidget {
           return CounterPage(
             title: 'Use React Widget Page',
             count: state,
-            onIncreasePressed: () => dispatch(CounterEventIncrease()),
+            onIncreasePressed: () => dispatch(Increment()),
           );
         }
       ),
@@ -80,7 +80,7 @@ class UseStoreProviderPage extends StatelessWidget {
         return CounterPage(
           title: 'Use Store Provider Page', 
           count: store.state, 
-          onIncreasePressed: () => store.dispatch(CounterEventIncrease())
+          onIncreasePressed: () => store.dispatch(Increment())
         );
       },
     );

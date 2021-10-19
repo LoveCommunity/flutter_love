@@ -66,7 +66,7 @@ packages:
       name: love
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-beta.6"
+    version: "0.1.0-rc.1"
   matcher:
     dependency: transitive
     description:

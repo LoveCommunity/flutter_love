@@ -55,7 +55,8 @@ class UseReactWidgetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
       create: (_) => createCounterSystem(),
-      child: ReactState<int, CounterEvent>(
+      builder: (context, _) => ReactState<int, CounterEvent>(
+        system: context.read(),
         builder: (context, state, dispatch) {
           return CounterPage(
             title: 'Use React Widget Page',

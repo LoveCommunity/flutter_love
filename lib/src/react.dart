@@ -1,123 +1,114 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:love/love.dart';
-import 'package:provider/provider.dart' hide Dispose;
+
+/// Widget Builder with state and dispatch
+typedef WidgetBuilder<S, E> = Widget Function(BuildContext context, S state, Dispatch<E> dispatch);
 
 /// React Widget that is a combination of `reactState` operator and widget.
-class ReactState<S, E> extends UIEffectBase<S, E> {
+class ReactState<S, E> extends React<S, E, S> {
 
-  // React Widget, build is triggered by reacting hold state change.
-  ReactState({
+  const ReactState({
     Key? key,
-    System<S, E>? system, 
+    required System<S, E> system,
     Equals<S>? equals,
-    required UIEffectBuilder<S, E> builder,
-  }): super(
+    required WidgetBuilder<S, E> builder,
+  }) : super(
     key: key,
-    builder: builder,
-    run: (context, setState, hasCache, cache) {
-      final _system = system ?? context.read<System<S, E>>();
-      return _system
-        .reactState(
-          equals: equals,
-          skipInitialState: false,
-          effect: (state, dispatch) {
-            void _cache() => cache(state, dispatch);
-            !hasCache() ? _cache() : setState(_cache);
-          },
-        ).run();
-    },
+    system: system,
+    value: _this,
+    equals: equals,
+    builder: builder
   );
 }
+
+/// enable **const** constructor for `ReactState`
+S _this<S>(S value) => value;
 
 /// React Widget that is a combination of `react` operator and widget.
-class React<S, E, V> extends UIEffectBase<V, E> {
+class React<S, E, V> extends StatefulWidget {
 
-  // React Widget, build is triggered by reacting partial state change.
-  React({
-    Key? key,
-    System<S, E>? system, 
-    required V Function(S state) value,
-    Equals<V>? equals,
-    required UIEffectBuilder<V, E> builder,  
-  }): super(
-    key: key,
-    builder: builder,
-    run: (context, setState, hasCache, cache) {
-      final _system = system ?? context.read<System<S, E>>();
-      return _system
-        .react<V>(
-          value: value,
-          equals: equals,
-          skipInitialValue: false,
-          effect: (value, dispatch) {
-            void _cache() => cache(value, dispatch);
-            !hasCache() ? _cache() : setState(_cache);
-          },
-        ).run();
-    },
-  );
-}
-
-/// Run within a stateful context
-typedef UIEffectRun<S, E> = Dispose Function(
-  BuildContext context,
-  void Function(void Function()) setState,
-  bool Function() hasCache,
-  void Function(S state, Dispatch<E> dispatch) cache,
-);
-
-/// Builder for presentation effect
-typedef UIEffectBuilder<S, E> = Widget Function(BuildContext context, S state, Dispatch<E> dispatch);
-
-/// Base class to consume `run` with a widget `builder`
-class UIEffectBase<S, E> extends StatefulWidget {
-
-  const UIEffectBase({
+  const React({
     Key? key, 
-    required this.run,
+    required this.system,
+    required this.value,
+    this.equals,
     required this.builder,
   }) : super(key: key);
 
-  final UIEffectRun<S, E> run;
-  final UIEffectBuilder<S, E> builder;
+  final System<S, E> system;
+  final V Function(S state) value;
+  final Equals<V>? equals;
+  final WidgetBuilder<V, E> builder;
 
   @override
-  State<UIEffectBase<S, E>> createState() => _UIEffectBaseState();
+  State<React<S, E, V>> createState() => _ReactState();
 }
 
-class _UIEffectBaseState<S, E> extends State<UIEffectBase<S, E>> {
+class _ReactState<S, E, V> extends State<React<S, E, V>> {
 
   Dispose? _dispose;
-  S? _state;
+  V? _value;
   Dispatch<E>? _dispatch;
 
   @override
   void initState() {
     super.initState();
-    _dispose = widget.run(context, setState, _hasCache, _cache);
+    _runSystem();
   }
 
-  bool _hasCache() => _dispatch != null;
-
-  void _cache(S state, Dispatch<E> dispatch) {
-    _state = state;
-    _dispatch = dispatch;
+  @override
+  void didUpdateWidget(React<S, E, V> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.system != widget.system) {
+      _disposeSystem();
+      _runSystem();
+    }
   }
 
   @override
   void dispose() {
+    _disposeSystem();
+    super.dispose();
+  }
+
+  void _runSystem() {
+    _dispose = widget.system
+      .react<V>(
+        value: widget.value,
+        equals: widget.equals,
+        skipInitialValue: false,
+        effect: _effect,
+      ).run();
+  }
+
+  void _disposeSystem() {
     if (_dispose != null) {
       _dispose?.call();
       _dispose = null;
+      _value = null;
+      _dispatch = null;
     }
-    super.dispose();
+  }
+
+  bool _hasCache() => _dispatch != null;
+
+  void _cache(V state, Dispatch<E> dispatch) {
+    _value = state;
+    _dispatch = dispatch;
+  }
+
+  void _effect(V value, Dispatch<E> dispatch) {
+    if (!_hasCache()) {
+      _cache(value, dispatch);
+    } else {
+      setState(() => _cache(value, dispatch));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    assert(_state is S);
+    assert(_value is V);
     assert(_dispatch != null);
-    return widget.builder(context, _state as S, _dispatch!);
+    return widget.builder(context, _value as V, _dispatch!);
   }
 }

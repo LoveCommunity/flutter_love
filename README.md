@@ -4,10 +4,9 @@
 
 ## Getting Started
 
-There are mainly two options to integrate [love] with flutter:
+There are mainly one option to integrate [love] with flutter:
 
 1. `React` Widget
-2. `StoreProvider` 
 
 ### 1. `React` Widget
 
@@ -34,36 +33,6 @@ class UseReactWidgetPage extends StatelessWidget {
           );
         }
       ),
-    );
-  }
-}
-
-```
-
-### 2. StoreProvider
-
-**`StoreProvider` can consume a `System` then provide `Store` to descendant widgets.**
-
-Descendant widget can access `Store` from `context`:
-
-```dart
-
-System<int, CounterEvent> createCounterSystem() { ... }
-
-class UseStoreProviderPage extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return StoreProvider(
-      create: (_) => createCounterSystem(),
-      builder: (context, _) {
-        final store = context.watch<Store<int, CounterEvent>>();
-        return CounterPage(
-          title: 'Use Store Provider Page', 
-          count: store.state, 
-          onIncreasePressed: () => store.dispatch(Increment())
-        );
-      },
     );
   }
 }

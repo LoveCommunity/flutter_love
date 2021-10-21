@@ -43,12 +43,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: UseReactWidgetPage(), // use `React` widget
-      // home: UseStoreProviderPage(), // or use `StoreProvider`
     );
   }
 }
 
-/// option 1: use `React` widget
+/// use `React` widget
 class UseReactWidgetPage extends StatelessWidget {
 
   @override
@@ -65,25 +64,6 @@ class UseReactWidgetPage extends StatelessWidget {
           );
         }
       ),
-    );
-  }
-}
-
-/// option 2: use `StoreProvider`
-class UseStoreProviderPage extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return StoreProvider(
-      create: (_) => createCounterSystem(),
-      builder: (context, _) {
-        final store = context.watch<Store<int, CounterEvent>>();
-        return CounterPage(
-          title: 'Use Store Provider Page', 
-          count: store.state, 
-          onIncreasePressed: () => store.dispatch(Increment())
-        );
-      },
     );
   }
 }

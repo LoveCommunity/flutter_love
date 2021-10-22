@@ -5,6 +5,52 @@ import 'package:flutter/widgets.dart' show Key, Widget, TransitionBuilder, Build
 import 'package:nested/nested.dart' show SingleChildStatefulWidget, SingleChildState;
 import 'package:provider/provider.dart' show Provider, StreamProvider, Create;
 
+/// `SystemProviders` can consume a `System` then provide `state` and `dispatch` to descendant widgets.
+/// 
+/// `SystemProviders` will break the `System` into smaller units (`state`, `dispatch` etc.),
+/// and provide these units to descendant.
+/// 
+/// Configurations:
+/// 
+/// ```dart
+/// SystemProviders(
+///   create: (context) => createSystem(), // A factory to create system, required.
+///   provideState: true,    // Whether to provide `State`, default `true`.
+///   provideStates: false,  // Whether to provide `Stream<State>`, default `false`.
+///   provideDispatch: true, // Whether to provide `Dispatch<E>`, default `true`.
+///   stateEquals: (it1, it2) => it1 == it2, // Whether new `state` are equal to old `state`. 
+///                                          // New state will be emitted only if it's not equal to old state.
+///                                          // defaults to `==`.
+///   builder: (context, child) => ..., // widget builder, nullable.
+///   child: SomeWidget(),              // child widget, nullable.
+/// );
+/// ```
+/// 
+/// Descendant widget can access `state` and `dispatch` from `context`:
+///
+/// ```dart
+///
+/// System<int, CounterEvent> createCounterSystem() { ... }
+///
+/// class UseSystemProvidersPage extends StatelessWidget {
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return SystemProviders(
+///       create: (_) => createCounterSystem(),
+///       builder: (context, _) {
+///         final state = context.watch<int>(); // <- access state
+///         return CounterPage(
+///           title: 'Use System Providers Page',
+///           count: state,
+///           onIncreasePressed: () => context.dispatch<CounterEvent>(Increment()), // <- access dispatch
+///         );
+///       },
+///     );
+///   }
+/// }
+/// ```
+/// 
 class SystemProviders<S, E> extends SingleChildStatefulWidget {
 
   SystemProviders.value({

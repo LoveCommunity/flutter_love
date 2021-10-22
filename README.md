@@ -58,11 +58,11 @@ class UseSystemProvidersPage extends StatelessWidget {
     return SystemProviders(
       create: (_) => createCounterSystem(),
       builder: (context, _) {
-        final state = context.watch<int>();
+        final state = context.watch<int>(); // <- access state
         return CounterPage(
           title: 'Use System Providers Page',
           count: state,
-          onIncreasePressed: () => context.dispatch<CounterEvent>(Increment()),
+          onIncreasePressed: () => context.dispatch<CounterEvent>(Increment()), // <- access dispatch
         );
       },
     );

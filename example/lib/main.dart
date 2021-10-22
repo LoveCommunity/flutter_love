@@ -42,7 +42,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: UseReactWidgetPage(), // use `React` widget
+      // home: UseReactWidgetPage(), // use `React` widget
+      home: UseSystemProvidersPage(), // use `SystemProviders`
     );
   }
 }
@@ -64,6 +65,25 @@ class UseReactWidgetPage extends StatelessWidget {
           );
         }
       ),
+    );
+  }
+}
+
+/// use `SystemProviders`
+class UseSystemProvidersPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return SystemProviders(
+      create: (_) => createCounterSystem(),
+      builder: (context, _) {
+        final state = context.watch<int>();
+        return CounterPage(
+          title: 'Use System Providers Page',
+          count: state,
+          onIncreasePressed: () => context.dispatch<CounterEvent>(Increment()),
+        );
+      },
     );
   }
 }

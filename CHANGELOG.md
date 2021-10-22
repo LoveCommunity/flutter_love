@@ -4,6 +4,7 @@
 * upgrade - upgrade `love` to v0.1.0-rc.1 [#26](https://github.com/LoveCommunity/flutter_love/issues/26)
 * refactor - reimplement `React` and `ReactState` widget to simplify the logic [#28](https://github.com/LoveCommunity/flutter_love/issues/28)
 * refactor - remove `StoreProvider`, see [#20](https://github.com/LoveCommunity/flutter_love/issues/20)
+* feature - add `SystemProviders` to provide `state` and `dispatch` [#30](https://github.com/LoveCommunity/flutter_love/issues/30)
 
 ## [0.1.0-beta.6] - 2020-09-22
 

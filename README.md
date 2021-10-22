@@ -4,9 +4,10 @@
 
 ## Getting Started
 
-There are mainly one option to integrate [love] with flutter:
+There are mainly two options to integrate [love] with flutter:
 
 1. `React` Widget
+2. `SystemProviders`
 
 ### 1. `React` Widget
 
@@ -24,7 +25,8 @@ class UseReactWidgetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
       create: (_) => createCounterSystem(),
-      child: ReactState<int, CounterEvent>(
+      builder: (context, _) => ReactState<int, CounterEvent>(
+        system: context.read(),
         builder: (context, state, dispatch) {
           return CounterPage(
             title: 'Use React Widget Page',
@@ -33,6 +35,36 @@ class UseReactWidgetPage extends StatelessWidget {
           );
         }
       ),
+    );
+  }
+}
+
+```
+
+### 2. SystemProviders
+
+**`SystemProviders` can consume a `System` then provide `state` and `dispatch` to descendant widgets.**
+
+Descendant widget can access `state` and `dispatch` from `context`:
+
+```dart
+
+System<int, CounterEvent> createCounterSystem() { ... }
+
+class UseSystemProvidersPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return SystemProviders(
+      create: (_) => createCounterSystem(),
+      builder: (context, _) {
+        final state = context.watch<int>();
+        return CounterPage(
+          title: 'Use System Providers Page',
+          count: state,
+          onIncreasePressed: () => context.dispatch<CounterEvent>(Increment()),
+        );
+      },
     );
   }
 }

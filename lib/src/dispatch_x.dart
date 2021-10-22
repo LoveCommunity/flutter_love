@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart' show BuildContext;
 import 'package:love/love.dart' show Dispatch;
 import 'package:provider/provider.dart' show ReadContext;
 
-extension ReadDispatchX on BuildContext {
+extension DispatchX on BuildContext {
 
   /// `readDispatch` is a shortcut for `context.read<Dispatch<E>>()`.
   Dispatch<E> readDispatch<E>() => read();

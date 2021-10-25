@@ -10,7 +10,7 @@ extension DispatchX on BuildContext {
 
   /// `dispatch` is a shortcut for `context.read<Dispatch<E>>().call(event)`.
   /// 
-  /// Warning: please don't omit the type `E` when calling this method:
+  /// Note: please don't omit the type `E` when calling this method:
   /// - Bad: `context.dispatch(Increment());`
   /// - Good: `context.dispatch<CounterEvent>(Increment());`
   /// 

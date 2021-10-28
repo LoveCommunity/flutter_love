@@ -1,5 +1,6 @@
 ## main
 
+* upgrade - upgrade `love` to v0.1.0-rc.2 [#31](https://github.com/LoveCommunity/flutter_love/issues/31)
 * upgrade - upgrade `provider` to v6.0.0 [#25](https://github.com/LoveCommunity/flutter_love/issues/25)
 * upgrade - upgrade `love` to v0.1.0-rc.1 [#26](https://github.com/LoveCommunity/flutter_love/issues/26)
 * refactor - reimplement `React` and `ReactState` widget to simplify the logic [#28](https://github.com/LoveCommunity/flutter_love/issues/28)

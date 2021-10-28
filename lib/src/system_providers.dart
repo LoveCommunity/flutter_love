@@ -1,6 +1,6 @@
 
 import 'dart:async' show Stream, StreamController;
-import 'package:love/love.dart' show System, Equals, Dispatch, Dispose, ReactOperators;
+import 'package:love/love.dart' show System, Equals, Dispatch, Disposer, ReactX;
 import 'package:flutter/widgets.dart' show Key, Widget, TransitionBuilder, BuildContext, Builder;
 import 'package:nested/nested.dart' show SingleChildStatefulWidget, SingleChildState;
 import 'package:provider/provider.dart' show Provider, StreamProvider, Create;
@@ -110,7 +110,7 @@ class _SystemProvidersState<S, E> extends SingleChildState<SystemProviders<S, E>
   late final StreamController<S> _controller = StreamController();
   late final Stream<S> _states = _controller.stream.asBroadcastStream();
   late Dispatch<E> _dispatch;
-  late Dispose _dispose;
+  late Disposer _disposer;
 
   @override
   void initState() {
@@ -132,7 +132,7 @@ class _SystemProvidersState<S, E> extends SingleChildState<SystemProviders<S, E>
   }
 
   void _runSystem() {
-    _dispose = _system
+    _disposer = _system
       .reactState(
         equals: widget.stateEquals,
         skipInitialState: false,
@@ -141,7 +141,7 @@ class _SystemProvidersState<S, E> extends SingleChildState<SystemProviders<S, E>
   }
 
   void _disposeSystem() {
-    _dispose();
+    _disposer();
   }
 
   void _effect(S state, Dispatch<E> dispatch) {

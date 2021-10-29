@@ -46,7 +46,7 @@ class React<S, E, V> extends StatefulWidget {
 
 class _ReactState<S, E, V> extends State<React<S, E, V>> {
 
-  Dispose? _dispose;
+  Disposer? _disposer;
   V? _value;
   Dispatch<E>? _dispatch;
 
@@ -72,7 +72,7 @@ class _ReactState<S, E, V> extends State<React<S, E, V>> {
   }
 
   void _runSystem() {
-    _dispose = widget.system
+    _disposer = widget.system
       .react<V>(
         value: widget.value,
         equals: widget.equals,
@@ -82,9 +82,9 @@ class _ReactState<S, E, V> extends State<React<S, E, V>> {
   }
 
   void _disposeSystem() {
-    if (_dispose != null) {
-      _dispose?.call();
-      _dispose = null;
+    if (_disposer != null) {
+      _disposer?.call();
+      _disposer = null;
       _value = null;
       _dispatch = null;
     }

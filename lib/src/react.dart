@@ -1,5 +1,5 @@
-import 'package:flutter/widgets.dart';
-import 'package:love/love.dart';
+import 'package:flutter/widgets.dart' show BuildContext, Key, State, StatefulWidget, Widget;
+import 'package:love/love.dart' show Dispatch, Disposer, Equals, ReactX, System;
 
 /// Widget Builder with state and dispatch
 typedef WidgetBuilder<S, E> = Widget Function(BuildContext context, S state, Dispatch<E> dispatch);

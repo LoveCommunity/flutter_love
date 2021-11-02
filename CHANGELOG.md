@@ -1,4 +1,4 @@
-## main
+## [0.1.0-beta.7] - 2020-11-02
 
 * upgrade - upgrade `love` to v0.1.0-rc.2 [#32](https://github.com/LoveCommunity/flutter_love/issues/32)
 * upgrade - upgrade `provider` to v6.0.0 [#25](https://github.com/LoveCommunity/flutter_love/issues/25)

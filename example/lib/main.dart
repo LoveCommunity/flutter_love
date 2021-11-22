@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_love/flutter_love.dart';
-import 'package:provider/provider.dart';
 
 // typedef CounterState = int;
 
@@ -42,48 +41,39 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: UseReactWidgetPage(), // use `React` widget
-      home: UseSystemProvidersPage(), // use `SystemProviders`
+      home: UseReactWidgetPage(),
     );
   }
 }
 
 /// use `React` widget
-class UseReactWidgetPage extends StatelessWidget {
+class UseReactWidgetPage extends StatefulWidget {
 
   @override
-  Widget build(BuildContext context) {
-    return Provider(
-      create: (_) => createCounterSystem(),
-      builder: (context, _) => ReactState<int, CounterEvent>(
-        system: context.read(),
-        builder: (context, state, dispatch) {
-          return CounterPage(
-            title: 'Use React Widget Page',
-            count: state,
-            onIncreasePressed: () => dispatch(Increment()),
-          );
-        }
-      ),
-    );
-  }
+  createState() => _UseReactWidgetPageState();
 }
 
-/// use `SystemProviders`
-class UseSystemProvidersPage extends StatelessWidget {
+class _UseReactWidgetPageState extends State<UseReactWidgetPage> {
+
+  late final System<int, CounterEvent> _system;
+
+  @override
+  void initState() {
+    super.initState();
+    _system = createCounterSystem();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SystemProviders(
-      create: (_) => createCounterSystem(),
-      builder: (context, _) {
-        final state = context.watch<int>();
+    return ReactState<int, CounterEvent>(
+      system: _system,
+      builder: (context, state, dispatch) {
         return CounterPage(
-          title: 'Use System Providers Page',
+          title: 'Use React Widget Page',
           count: state,
-          onIncreasePressed: () => context.dispatch<CounterEvent>(Increment()),
+          onIncreasePressed: () => dispatch(Increment()),
         );
-      },
+      }
     );
   }
 }

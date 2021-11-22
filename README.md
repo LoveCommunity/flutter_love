@@ -75,4 +75,4 @@ class UseSystemProvidersPage extends StatelessWidget {
 
 The MIT License (MIT)
 
-[love]:https://pub.dev/packages/love/versions/0.1.0-rc.2
+[love]:https://pub.dev/packages/love

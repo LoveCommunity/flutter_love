@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  love: ^0.1.0-rc.2
+  love: ^0.1.0
   provider: ^6.0.0
   nested: ^1.0.0
 

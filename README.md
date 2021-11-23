@@ -1,15 +1,8 @@
 # flutter_love
 
-`flutter_love` provide flutter widgets handle common use case with [love] state management library, so fall in `love` with `flutter`.
+`flutter_love` provide flutter widgets handle common use case with [love] state management library.
 
-## Getting Started
-
-There are mainly two options to integrate [love] with flutter:
-
-1. `React` Widget
-2. `SystemProviders`
-
-### 1. `React` Widget
+### `React` Widget
 
 **`React` Widget is a combination of `react operator` and widget builder.**
 
@@ -19,52 +12,33 @@ It can consume a `System` with widget `builder`:
 
 System<int, CounterEvent> createCounterSystem() { ... }
 
-class UseReactWidgetPage extends StatelessWidget {
+class UseReactWidgetPage extends StatefulWidget {
 
   @override
-  Widget build(BuildContext context) {
-    return Provider(
-      create: (_) => createCounterSystem(),
-      builder: (context, _) => ReactState<int, CounterEvent>(
-        system: context.read(),
-        builder: (context, state, dispatch) {
-          return CounterPage(
-            title: 'Use React Widget Page',
-            count: state,
-            onIncreasePressed: () => dispatch(Increment()),
-          );
-        }
-      ),
-    );
-  }
+  createState() => _UseReactWidgetPageState();
 }
 
-```
+class _UseReactWidgetPageState extends State<UseReactWidgetPage> {
 
-### 2. SystemProviders
+  late final System<int, CounterEvent> _system;
 
-**`SystemProviders` can consume a `System` then provide `state` and `dispatch` to descendant widgets.**
-
-Descendant widget can access `state` and `dispatch` from `context`:
-
-```dart
-
-System<int, CounterEvent> createCounterSystem() { ... }
-
-class UseSystemProvidersPage extends StatelessWidget {
+  @override
+  void initState() {
+    super.initState();
+    _system = createCounterSystem();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SystemProviders(
-      create: (_) => createCounterSystem(),
-      builder: (context, _) {
-        final state = context.watch<int>(); // <- access state
+    return ReactState<int, CounterEvent>(
+      system: _system,
+      builder: (context, state, dispatch) {
         return CounterPage(
-          title: 'Use System Providers Page',
+          title: 'Use React Widget Page',
           count: state,
-          onIncreasePressed: () => context.dispatch<CounterEvent>(Increment()), // <- access dispatch
+          onIncreasePressed: () => dispatch(Increment()),
         );
-      },
+      }
     );
   }
 }

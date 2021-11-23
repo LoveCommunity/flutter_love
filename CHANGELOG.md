@@ -1,3 +1,10 @@
+## [0.1.0-beta.8] - 2020-11-23
+
+* feature - CD - auto publish package to pub.dev after cut a github release by @beeth0ven in [37](https://github.com/LoveCommunity/flutter_love/pull/37)
+* upgrade - upgrade `love` to v0.1.0 by @beeth0ven in [40](https://github.com/LoveCommunity/flutter_love/pull/40)
+* refactor - explicit import and export types by @beeth0ven in [35](https://github.com/LoveCommunity/flutter_love/pull/35)
+* refactor - remove `provider` from `flutter_love` by @beeth0ven in [41](https://github.com/LoveCommunity/flutter_love/pull/41)
+
 ## [0.1.0-beta.7] - 2020-11-02
 
 * upgrade - upgrade `love` to v0.1.0-rc.2 [#32](https://github.com/LoveCommunity/flutter_love/issues/32)

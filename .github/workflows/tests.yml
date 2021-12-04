@@ -1,0 +1,24 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        channel: [stable, beta]
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - uses: subosito/flutter-action@v1.5.3
+        with:
+          channel: ${{ matrix.channel }}
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test --coverage
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

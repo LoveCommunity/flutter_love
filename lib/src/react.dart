@@ -4,7 +4,50 @@ import 'package:love/love.dart' show Dispatch, Disposer, Equals, ReactX, System;
 /// Widget Builder with state and dispatch
 typedef WidgetBuilder<S, E> = Widget Function(BuildContext context, S state, Dispatch<E> dispatch);
 
-/// React Widget that is a combination of `reactState` operator and widget.
+/// [ReactState] widget will react to system's whole state change, 
+/// then trigger a build with widget builder.
+/// 
+/// ## API Overview
+/// 
+/// ```dart
+/// ReactState<int, CounterEvent>(
+///   system: _system,
+///   equals: (it1, it2) { // `equals` is used to determine if old state equals 
+///     return it1 == it2; // to new state. If there are not equal, then build
+///   },                   // is triggered. `equals` defaults to 
+///                        // `==` if omitted.                                
+///   builder: (context, state, dispatch) {
+///     return ...; // return widget based on state, required
+///   },
+/// );
+/// ```
+/// 
+/// ## Usage Example:
+/// 
+/// Below code shown a counter example:
+/// 
+/// ```dart
+/// ...
+///
+/// final System<int, CounterEvent> _system = ...; // store system somewhere
+///
+/// ...
+///
+/// @override
+/// Widget build(BuildContext context) {
+///   return ReactState<int, CounterEvent>(
+///     system: _system,
+///     builder: (context, state, dispatch) {
+///       return CounterPage(
+///         title: 'Use React Widget Page',
+///         count: state,
+///         onIncreasePressed: () => dispatch(Increment()),
+///       );
+///     },
+///   );
+/// }
+/// ```
+/// 
 class ReactState<S, E> extends React<S, E, S> {
 
   const ReactState({
@@ -24,7 +67,51 @@ class ReactState<S, E> extends React<S, E, S> {
 /// enable **const** constructor for `ReactState`
 S _this<S>(S value) => value;
 
-/// React Widget that is a combination of `react` operator and widget.
+/// [React] widget will react to system's partial state change, 
+/// then trigger a build with widget builder.
+/// 
+/// ## API Overview
+/// 
+/// ```dart
+/// React<AsyncState, CounterEvent, bool>(
+///   system: _system,
+///   value: (state) => state.loading, // map state to value, required
+///   equals: (value1, value2) { // `equals` is used to determine if old value equals 
+///     return value1 == value2; // to new value. If there are not equal, then build
+///   },                         // is triggered. `equals` defaults to 
+///                              // `==` if omitted.                                
+///   builder: (context, loading, dispatch) {
+///     return ...; // return widget based on loading status, required
+///   },
+/// );
+/// ```
+/// 
+/// ## Usage Example:
+/// 
+/// Below code shown how to build widget based on `counts.isOdd`:
+/// 
+/// ```dart
+/// ...
+///
+/// final System<int, CounterEvent> _system = ...; // store system somewhere
+///
+/// ...
+///
+/// @override
+/// Widget build(BuildContext context) {
+///   return React<int, CounterEvent, bool>(
+///     system: _system,
+///     value: (state) => state.isOdd, // map state to value
+///     builder: (context, isOdd, dispatch) {
+///       return TextButton(
+///         onPressed: () => dispatch(Increment()),
+///         child: Text('isOdd: $isOdd'),
+///       );
+///     },
+///   );
+/// }
+/// ```
+/// 
 class React<S, E, V> extends StatefulWidget {
 
   const React({

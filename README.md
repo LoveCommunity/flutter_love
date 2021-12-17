@@ -6,48 +6,57 @@
 
 `flutter_love` provide flutter widgets handle common use case with [love] state management library.
 
-### `React` Widget
+## `React*` Widgets
 
-**`React` Widget is a combination of `react operator` and widget builder.**
+**`React*` Widgets are combination of `react*` operators and widget builder.**
 
-It can consume a `System` with widget `builder`:
+  1. `ReactState` will react to system's **whole** state change, then trigger a build with widget builder:
+  
+     ```dart
+     ...
 
-```dart
+     final System<int, CounterEvent> _system = ...; // store system somewhere
 
-System<int, CounterEvent> createCounterSystem() { ... }
+     ...
 
-class UseReactWidgetPage extends StatefulWidget {
+     @override
+     Widget build(BuildContext context) {
+       return ReactState<int, CounterEvent>(
+         system: _system,
+         builder: (context, state, dispatch) {
+           return CounterPage(
+             title: 'Use React Widget Page',
+             count: state,
+             onIncreasePressed: () => dispatch(Increment()),
+           );
+         }
+       );
+     }
+     ```
 
-  @override
-  createState() => _UseReactWidgetPageState();
-}
+  2. `React` will react to system's **partial** state change, then trigger a build with widget builder:
+  
+     ```dart
+     ...
 
-class _UseReactWidgetPageState extends State<UseReactWidgetPage> {
+     final System<int, CounterEvent> _system = ...; // store system somewhere
 
-  late final System<int, CounterEvent> _system;
+     ...
 
-  @override
-  void initState() {
-    super.initState();
-    _system = createCounterSystem();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ReactState<int, CounterEvent>(
-      system: _system,
-      builder: (context, state, dispatch) {
-        return CounterPage(
-          title: 'Use React Widget Page',
-          count: state,
-          onIncreasePressed: () => dispatch(Increment()),
-        );
-      }
-    );
-  }
-}
-
-```
+     @override
+     Widget build(BuildContext context) {
+       return React<int, CounterEvent, bool>(
+         system: _system,
+         value: (state) => state.isOdd, // map state to value
+         builder: (context, isOdd, dispatch) {
+           return TextButton(
+             onPressed: () => dispatch(Increment()),
+             child: Text('isOdd: $isOdd'),
+           );
+         },
+       );
+     }
+     ```
 
 ## License
 

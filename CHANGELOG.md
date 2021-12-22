@@ -1,3 +1,10 @@
+## [0.1.0] - 2020-12-22
+
+* tests - add tests for widget by @beeth0ven in [43](https://github.com/LoveCommunity/flutter_love/pull/43)
+* feature - add github action tests by @beeth0ven in [44](https://github.com/LoveCommunity/flutter_love/pull/44)
+* docs - add shields images by @beeth0ven in [45](https://github.com/LoveCommunity/flutter_love/pull/45)
+* docs - improve docs with example codes by @beeth0ven in [48](https://github.com/LoveCommunity/flutter_love/pull/48)
+
 ## [0.1.0-beta.8] - 2020-11-23
 
 * feature - CD - auto publish package to pub.dev after cut a github release by @beeth0ven in [37](https://github.com/LoveCommunity/flutter_love/pull/37)

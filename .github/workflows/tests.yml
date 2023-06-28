@@ -15,16 +15,19 @@ jobs:
     strategy:
       matrix:
         channel: [stable, beta]
+        version: [any]
+        include:
+          - channel: stable
+            version: 3.3.0
 
     steps:
       - uses: actions/checkout@v2.4.0
-      - uses: subosito/flutter-action@v1.5.3
+      - uses: subosito/flutter-action@v2.10.0
         with:
           channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.version }}
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test --coverage
       - name: Upload coverage reports
         uses: codecov/codecov-action@v2.1.0
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}

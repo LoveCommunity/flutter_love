@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart' show BuildContext, Key, State, StatefulWidget, Widget;
+import 'package:flutter/widgets.dart' show BuildContext, State, StatefulWidget, Widget;
 import 'package:love/love.dart' show Dispatch, Disposer, Equals, ReactX, System;
 
 /// Widget Builder with state and dispatch
@@ -51,16 +51,12 @@ typedef WidgetBuilder<S, E> = Widget Function(BuildContext context, S state, Dis
 class ReactState<S, E> extends React<S, E, S> {
 
   const ReactState({
-    Key? key,
-    required System<S, E> system,
-    Equals<S>? equals,
-    required WidgetBuilder<S, E> builder,
+    super.key,
+    required super.system,
+    super.equals,
+    required super.builder,
   }) : super(
-    key: key,
-    system: system,
-    value: _this,
-    equals: equals,
-    builder: builder
+    value: _this
   );
 }
 
@@ -115,12 +111,12 @@ S _this<S>(S value) => value;
 class React<S, E, V> extends StatefulWidget {
 
   const React({
-    Key? key, 
+    super.key, 
     required this.system,
     required this.value,
     this.equals,
     required this.builder,
-  }) : super(key: key);
+  });
 
   final System<S, E> system;
   final V Function(S state) value;

@@ -75,3 +75,4 @@ pubspec.lock
 !**/ios/**/default.perspectivev3
 .vscode
 love.dart
+.github_changelog_generator

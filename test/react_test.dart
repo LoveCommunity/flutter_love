@@ -93,13 +93,19 @@ void main() {
       final systemA = System<String, String>
         .create(initialState: 'a')
         .add(reduce: reduce)
-        .onRun(effect: (_, __) { runInvokedA += 1; })
+        .onRun(effect: (_, __) { 
+          runInvokedA += 1;
+          return null; 
+        })
         .onDispose(run: () { disposeInvokedA += 1; });
       
       final systemB = System<String, String>
         .create(initialState: 'b')
         .add(reduce: reduce)
-        .onRun(effect: (_, __) { runInvokedB += 1; })
+        .onRun(effect: (_, __) { 
+          runInvokedB += 1; 
+          return null;  
+        })
         .onDispose(run: () { disposeInvokedB += 1; });
 
       final key = GlobalKey();
@@ -315,13 +321,19 @@ void main() {
       final systemA = System<String, String>
         .create(initialState: 'a')
         .add(reduce: reduce)
-        .onRun(effect: (_, __) { runInvokedA += 1; })
+        .onRun(effect: (_, __) { 
+          runInvokedA += 1;
+          return null; 
+        })
         .onDispose(run: () { disposeInvokedA += 1; });
       
       final systemB = System<String, String>
         .create(initialState: 'b')
         .add(reduce: reduce)
-        .onRun(effect: (_, __) { runInvokedB += 1; })
+        .onRun(effect: (_, __) { 
+          runInvokedB += 1;
+          return null; 
+        })
         .onDispose(run: () { disposeInvokedB += 1; });
 
       final key = GlobalKey();

@@ -1,3 +1,10 @@
+## 0.2.0
+
+- cicd 
+  - improvement github workflows [\#53](https://github.com/LoveCommunity/flutter_love/pull/53)
+- refactor 
+  - upgrade dependencies [\#52](https://github.com/LoveCommunity/flutter_love/pull/52)
+
 ## [0.1.0] - 2020-12-22
 
 * tests - add tests for widget by @beeth0ven in [43](https://github.com/LoveCommunity/flutter_love/pull/43)
